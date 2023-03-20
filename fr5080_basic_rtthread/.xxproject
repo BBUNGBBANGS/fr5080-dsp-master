@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xxProperties>
+<propertyGroup name="project.information">
+<version value="3.0"/>
+</propertyGroup>
+<propertyGroup name="build.property">
+<buildTarget defaultTarget="Debug"/>
+</propertyGroup>
+<propertyGroup name="build.exclusion.data">
+<buildExclusionDatas>
+<exclusionSet name="Default" selected="1">
+<excludedEntry data="/.*/bin/.*"/>
+<excludedEntry data="/.*/src/rtthread/examples/kernel/event_simple\.c"/>
+<excludedEntry data="/.*/src/rtthread/examples/kernel/mbox_simple\.c"/>
+<excludedEntry data="/.*/src/rtthread/examples/kernel/memp_simple\.c"/>
+<excludedEntry data="/.*/src/rtthread/examples/kernel/semaphore_static\.c"/>
+<excludedEntry data="/.*/src/rtthread/examples/kernel/timer_control\.c"/>
+<excludedEntry data="/.*/src/rtthread/examples/kernel/timer_static\.c"/>
+<excludedEntry data="/.*/src/rtthread/examples/kernel/timer_stop_self\.c"/>
+<excludedEntry data="/.*/src/rtthread/examples/kernel/mbox_send_wait\.c"/>
+<excludedEntry data="/.*/src/rtthread/examples/kernel/messageq_simple\.c"/>
+<excludedEntry data="/.*/src/rtthread/examples/kernel/semaphore_buffer_worker\.c"/>
+<excludedEntry data="/.*/src/rtthread/examples/kernel/semaphore_dynamic\.c"/>
+<excludedEntry data="/.*/src/rtthread/examples/kernel/semaphore_priority\.c"/>
+<excludedEntry data="/.*/src/rtthread/examples/kernel/semaphore_producer_consumer\.c"/>
+<excludedEntry data="/.*/src/rtthread/examples/kernel/timer_timeout\.c"/>
+<excludedEntry data="/.*/src/rtthread/examples/kernel/timer_dynamic\.c"/>
+<excludedEntry data="/.*/src/rtthread/examples/kernel/mutex_simple\.c"/>
+</exclusionSet>
+</buildExclusionDatas>
+</propertyGroup>
+<propertyGroup name="build.auto.includes">
+<exportDirs autoConsumeDirs="true" includeDepDirs="true" mode="auto"/>
+</propertyGroup>
+<propertyGroup name="library.dependencies"/>
+<propertyGroup name="build.custom.steps"/>
+</xxProperties>

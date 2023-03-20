@@ -1,0 +1,1730 @@
+#include <stdint.h>
+#include <stddef.h>
+
+#include "co_util.h"
+
+void LCDSPI_InitCMD(uint8_t cmd);
+void LCDSPI_InitDAT(uint8_t data);
+void LCDSPI_InitCMD_QSPI(uint8_t cmd, uint8_t *param, uint8_t len);
+void LCDSPI_InitCMD_QSPI_single(uint8_t cmd, uint8_t param);
+
+#if 1   // from 1.2....txt
+#if 0
+void lcd_rm69330_init(void)
+{
+//{0x15,0,0,0,0,2,{0xFE,0x01}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x01);
+
+//{0x15,0,0,0,0,2,{0x05,0x10}},
+	LCDSPI_InitCMD(0x05);
+	LCDSPI_InitDAT(0x10);
+
+
+//{0x15,0,0,0,0,2,{0x06,0x62}},
+	LCDSPI_InitCMD(0x06);
+	LCDSPI_InitDAT(0x62);
+
+//{0x15,0,0,0,0,2,{0x0D,0x00}},	
+	LCDSPI_InitCMD(0x0D);
+	LCDSPI_InitDAT(0x00);
+
+//{0x15,0,0,0,0,2,{0x0E,0x81}},//AVDD Charge Pump 81H-6.2V
+	LCDSPI_InitCMD(0x0E);
+	LCDSPI_InitDAT(0x81);
+
+//{0x15,0,0,0,0,2,{0x0F,0x81}},//AVDD Charge Pump 81H-6.2V idle
+	LCDSPI_InitCMD(0x0F);
+	LCDSPI_InitDAT(0x81);
+
+//{0x15,0,0,0,0,2,{0x10,0x11}},//AVDD=2VCI
+	LCDSPI_InitCMD(0x10);
+	LCDSPI_InitDAT(0x11);
+
+//{0x15,0,0,0,0,2,{0x11,0x81}},//VCL=-VCI,
+	LCDSPI_InitCMD(0x11);
+	LCDSPI_InitDAT(0x81);
+
+//{0x15,0,0,0,0,2,{0x12,0x81}},
+	LCDSPI_InitCMD(0x12);
+	LCDSPI_InitDAT(0x81);
+
+//{0x15,0,0,0,0,2,{0x13,0x80}},//VGH Charge Pump
+	LCDSPI_InitCMD(0x13);
+	LCDSPI_InitDAT(0x80);
+
+//{0x15,0,0,0,0,2,{0x14,0x80}},
+	LCDSPI_InitCMD(0x14);
+	LCDSPI_InitDAT(0x80);
+
+//{0x15,0,0,0,0,2,{0x15,0x81}},//VGL Charge Pump  VCL-AVDD
+	LCDSPI_InitCMD(0x15);
+	LCDSPI_InitDAT(0x81);
+
+//{0x15,0,0,0,0,2,{0x16,0x81}},//VGL
+	LCDSPI_InitCMD(0x16);
+	LCDSPI_InitDAT(0x81);
+
+//{0x15,0,0,0,0,2,{0x18,0x66}},//VGHR66=6V
+	LCDSPI_InitCMD(0x18);
+	LCDSPI_InitDAT(0x66);
+
+//{0x15,0,0,0,0,2,{0x19,0x88}},//VGLR aa=-7V 44=-4v
+	LCDSPI_InitCMD(0x19);
+	LCDSPI_InitDAT(0x88);
+
+//{0x15,0,0,0,0,2,{0x5B,0x10}},//VREFPN5 Regulator Enable
+	LCDSPI_InitCMD(0x5B);
+	LCDSPI_InitDAT(0x10);
+
+//{0x15,0,0,0,0,2,{0x5C,0x55}},//VPREF5 and VNREF5 output status(default)
+	LCDSPI_InitCMD(0x5C);
+	LCDSPI_InitDAT(0x55);
+
+//{0x15,0,0,0,0,2,{0x62,0x19}},//Normal 19 VREFN=-3V 2e=-5v
+	LCDSPI_InitCMD(0x62);
+	LCDSPI_InitDAT(0x19);
+
+//{0x15,0,0,0,0,2,{0x63,0x19}},//Idle VREFN
+	LCDSPI_InitCMD(0x63);
+	LCDSPI_InitDAT(0x19);
+
+//{0x15,0,0,0,0,2,{0x70,0x55}},//Source Sequence 2
+	LCDSPI_InitCMD(0x70);
+	LCDSPI_InitDAT(0x55);
+
+//{0x15,0,0,0,0,2,{0x74,0x0C}},	//OVDD / SD power source control
+	LCDSPI_InitCMD(0x74);
+	LCDSPI_InitDAT(0x0C);
+
+//{0x15,0,0,0,0,2,{0xC5,0x10}}, // NOR=IDLE=GAM1 // HBM=GAM2
+	LCDSPI_InitCMD(0xC5);
+	LCDSPI_InitDAT(0x10);
+
+
+//{0x15,0,0,0,0,2,{0x25,0x03}},	//Normal
+	LCDSPI_InitCMD(0x25);
+	LCDSPI_InitDAT(0x03);
+
+//{0x15,0,0,0,0,2,{0x26,0x80}},
+	LCDSPI_InitCMD(0x26);
+	LCDSPI_InitDAT(0x80);
+
+//{0x15,0,0,0,0,2,{0x27,0x08}},
+	LCDSPI_InitCMD(0x27);
+	LCDSPI_InitDAT(0x08);
+
+//{0x15,0,0,0,0,2,{0x28,0x08}},
+	LCDSPI_InitCMD(0x28);
+	LCDSPI_InitDAT(0x08);
+
+//{0x15,0,0,0,0,2,{0x2A,0x23}},  //IDLE  
+	LCDSPI_InitCMD(0x2A);
+	LCDSPI_InitDAT(0x23);
+
+//{0x15,0,0,0,0,2,{0x2B,0x80}},
+	LCDSPI_InitCMD(0x2B);
+	LCDSPI_InitDAT(0x80);
+
+//{0x15,0,0,0,0,2,{0x2D,0x08}},//VBP
+	LCDSPI_InitCMD(0x2D);
+	LCDSPI_InitDAT(0x08);
+
+//{0x15,0,0,0,0,2,{0x2F,0x08}},//VFP
+	LCDSPI_InitCMD(0x2F);
+	LCDSPI_InitDAT(0x08);
+
+//{0x15,0,0,0,0,2,{0x30,0x43}},  //43: 15Hz
+	LCDSPI_InitCMD(0x30);
+	LCDSPI_InitDAT(0x43);
+
+
+//{0x15,0,0,0,0,2,{0x66,0x90}},  //Idle interal elvdd,elvss
+	LCDSPI_InitCMD(0x66);
+	LCDSPI_InitDAT(0x90);
+
+
+//{0x15,0,0,0,0,2,{0x72,0x1A}},  //OVDD  4.6V
+	LCDSPI_InitCMD(0x72);
+	LCDSPI_InitDAT(0x1A);
+
+//{0x15,0,0,0,0,2,{0x73,0x13}},  //OVSS  -2.2V
+	LCDSPI_InitCMD(0x73);
+	LCDSPI_InitDAT(0x13);
+
+
+//{0x15,0,0,0,0,2,{0xFE,0x01}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x01);
+
+//{0x15,0,0,0,0,2,{0x6A,0x03}},  //RT4723 OVSS -2.2V
+	LCDSPI_InitCMD(0x6A);
+	LCDSPI_InitDAT(0x17);
+		
+
+//{0x15,0,0,0,0,2,{0x1B,0x00}},  //8:Deep idle 8color 0:HBM 24bit
+	LCDSPI_InitCMD(0x1B);
+	LCDSPI_InitDAT(0x00);
+
+
+//VSR power saving
+//{0x15,0,0,0,0,2,{0x1D,0x03}},
+	LCDSPI_InitCMD(0x1D);
+	LCDSPI_InitDAT(0x03);
+
+//{0x15,0,0,0,0,2,{0x1E,0x03}},
+	LCDSPI_InitCMD(0x1E);
+	LCDSPI_InitDAT(0x03);
+	
+//{0x15,0,0,0,0,2,{0x1F,0x0C}},   //zhuankong crosstalk
+	LCDSPI_InitCMD(0x1F);
+	LCDSPI_InitDAT(0x0C);
+
+//{0x15,0,0,0,0,2,{0x20,0x03}},
+	LCDSPI_InitCMD(0x20);
+	LCDSPI_InitDAT(0x03);
+
+//{0x15,0,0,0,0,2,{0xFE,0x01}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x01);
+
+//{0x15,0,0,0,0,2,{0x36,0x00}},
+	LCDSPI_InitCMD(0x36);
+	LCDSPI_InitDAT(0x00);
+
+//{0x15,0,0,0,0,2,{0x6C,0x80}},  //SD_COPEN_OFF
+	LCDSPI_InitCMD(0x6C);
+	LCDSPI_InitDAT(0x80);
+
+//{0x15,0,0,0,0,2,{0x6D,0x19}},  //VGMP VGSP turn off at idle mode
+	LCDSPI_InitCMD(0x6D);
+	LCDSPI_InitDAT(0x19);
+
+
+//{0x15,0,0,0,0,2,{0xFE,0x04}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x04);
+
+//{0x15,0,0,0,0,2,{0x63,0x00}},
+	LCDSPI_InitCMD(0x63);
+	LCDSPI_InitDAT(0x00);
+
+//{0x15,0,0,0,0,2,{0x64,0x0E}},
+	LCDSPI_InitCMD(0x64);
+	LCDSPI_InitDAT(0x0E);
+
+
+//Gamma
+//{0x15,0,0,0,0,2,{0xFE,0x02}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x02);
+
+//{0x15,0,0,0,0,2,{0xA9,0x40}},//6V VGMP
+	LCDSPI_InitCMD(0xA9);
+	LCDSPI_InitDAT(0x40);	
+
+//{0x15,0,0,0,0,2,{0xAA,0xB8}},//2.5V VGSP
+	LCDSPI_InitCMD(0xAA);
+	LCDSPI_InitDAT(0xB8);
+
+//{0x15,0,0,0,0,2,{0xAB,0x01}},//
+	LCDSPI_InitCMD(0xAB);
+	LCDSPI_InitDAT(0x01);
+
+
+//{0x15,0,0,0,0,2,{0xFE,0x03}},	//page2
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x03);
+
+//{0x15,0,0,0,0,2,{0xA9,0x40}},	//6V VGMP
+	LCDSPI_InitCMD(0xA9);
+	LCDSPI_InitDAT(0x40);
+
+//{0x15,0,0,0,0,2,{0xAA,0x90}},	//2.5V VGSP
+	LCDSPI_InitCMD(0xAA);
+	LCDSPI_InitDAT(0x90);
+
+//{0x15,0,0,0,0,2,{0xAB,0x01}},	//
+	LCDSPI_InitCMD(0xAB);
+	LCDSPI_InitDAT(0x01);
+
+
+//Switch Timing Control
+//{0x15,0,0,0,0,2,{0xFE,0x01}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x01);
+
+//{0x15,0,0,0,0,2,{0x3A,0x00}},//05
+	LCDSPI_InitCMD(0x3A);
+	LCDSPI_InitDAT(0x00);
+
+//{0x15,0,0,0,0,2,{0x3B,0x41}},//00
+	LCDSPI_InitCMD(0x3B);
+	LCDSPI_InitDAT(0x41);
+
+//{0x15,0,0,0,0,2,{0x3D,0x17}},//05
+	LCDSPI_InitCMD(0x3D);
+	LCDSPI_InitDAT(0x17);
+	
+//{0x15,0,0,0,0,2,{0x3F,0x42}}, //42
+	LCDSPI_InitCMD(0x3F);
+	LCDSPI_InitDAT(0x42);
+
+//{0x15,0,0,0,0,2,{0x40,0x17}},//09
+	LCDSPI_InitCMD(0x40);
+	LCDSPI_InitDAT(0x17);
+
+//{0x15,0,0,0,0,2,{0x41,0x06}},//06
+	LCDSPI_InitCMD(0x41);
+	LCDSPI_InitDAT(0x06);
+
+//{0x15,0,0,0,0,2,{0x37,0x0C}},//0C:VGSP NO SWAP //0C
+	LCDSPI_InitCMD(0x37);
+	LCDSPI_InitDAT(0x0C);
+
+
+//SW MAPPING
+//{0x15,0,0,0,0,2,{0xFE,0x0C}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x0C);
+
+//{0x15,0,0,0,0,2,{0x07,0x1F}},
+	LCDSPI_InitCMD(0x07);
+	LCDSPI_InitDAT(0x1F);
+
+//{0x15,0,0,0,0,2,{0x08,0x2F}},
+	LCDSPI_InitCMD(0x08);
+	LCDSPI_InitDAT(0x2F);
+
+//{0x15,0,0,0,0,2,{0x09,0x3F}},
+	LCDSPI_InitCMD(0x09);
+	LCDSPI_InitDAT(0x3F);
+
+//{0x15,0,0,0,0,2,{0x0A,0x4F}},
+	LCDSPI_InitCMD(0x0A);
+	LCDSPI_InitDAT(0x4F);
+
+//{0x15,0,0,0,0,2,{0x0B,0x5F}},
+	LCDSPI_InitCMD(0x0B);
+	LCDSPI_InitDAT(0x5F);
+
+//{0x15,0,0,0,0,2,{0x0C,0x6F}},
+	LCDSPI_InitCMD(0x0C);
+	LCDSPI_InitDAT(0x6F);
+
+//{0x15,0,0,0,0,2,{0x0D,0xFF}},
+	LCDSPI_InitCMD(0x0D);
+	LCDSPI_InitDAT(0xFF);
+
+//{0x15,0,0,0,0,2,{0x0E,0xFF}},
+	LCDSPI_InitCMD(0x0E);
+	LCDSPI_InitDAT(0xFF);
+
+
+//{0x15,0,0,0,0,2,{0x0F,0xFF}},
+	LCDSPI_InitCMD(0x0F);
+	LCDSPI_InitDAT(0xFF);
+
+//{0x15,0,0,0,0,2,{0x10,0xFF}},
+	LCDSPI_InitCMD(0x10);
+	LCDSPI_InitDAT(0xFF);
+	
+	
+//181006
+//SW OUTPUT
+//{0x15,0,0,0,0,2,{0xFE,0x01}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x01);
+
+
+//{0x15,0,0,0,0,2,{0x42,0x14}},
+	LCDSPI_InitCMD(0x42);
+	LCDSPI_InitDAT(0x14);
+
+//{0x15,0,0,0,0,2,{0x43,0x41}},
+	LCDSPI_InitCMD(0x43);
+	LCDSPI_InitDAT(0x41);
+
+//{0x15,0,0,0,0,2,{0x44,0x25}},
+	LCDSPI_InitCMD(0x44);
+	LCDSPI_InitDAT(0x25);
+
+//{0x15,0,0,0,0,2,{0x45,0x52}},
+	LCDSPI_InitCMD(0x45);
+	LCDSPI_InitDAT(0x52);
+
+//{0x15,0,0,0,0,2,{0x46,0x36}},
+	LCDSPI_InitCMD(0x46);
+	LCDSPI_InitDAT(0x36);
+	
+
+//{0x15,0,0,0,0,2,{0x47,0x63}},
+	LCDSPI_InitCMD(0x47);
+	LCDSPI_InitDAT(0x63);
+
+
+//{0x15,0,0,0,0,2,{0x48,0x41}},
+	LCDSPI_InitCMD(0x48);
+	LCDSPI_InitDAT(0x41);
+	
+//{0x15,0,0,0,0,2,{0x49,0x14}},
+	LCDSPI_InitCMD(0x49);
+	LCDSPI_InitDAT(0x14);
+
+//{0x15,0,0,0,0,2,{0x4A,0x52}},
+	LCDSPI_InitCMD(0x4A);
+	LCDSPI_InitDAT(0x52);
+
+//{0x15,0,0,0,0,2,{0x4B,0x25}},
+	LCDSPI_InitCMD(0x4B);
+	LCDSPI_InitDAT(0x25);
+
+//{0x15,0,0,0,0,2,{0x4C,0x63}},
+	LCDSPI_InitCMD(0x4C);
+	LCDSPI_InitDAT(0x63);
+
+//{0x15,0,0,0,0,2,{0x4D,0x36}},
+	LCDSPI_InitCMD(0x4D);
+	LCDSPI_InitDAT(0x36);
+
+
+//SW DATA
+//{0x15,0,0,0,0,2,{0x4E,0x36}},
+	LCDSPI_InitCMD(0x4E);
+	LCDSPI_InitDAT(0x36);	
+
+
+//{0x15,0,0,0,0,2,{0x4F,0x63}},
+	LCDSPI_InitCMD(0x4F);
+	LCDSPI_InitDAT(0x63);	
+
+
+//{0x15,0,0,0,0,2,{0x50,0x25}},
+	LCDSPI_InitCMD(0x50);
+	LCDSPI_InitDAT(0x25);
+
+//{0x15,0,0,0,0,2,{0x51,0x52}},
+	LCDSPI_InitCMD(0x51);
+	LCDSPI_InitDAT(0x52);	
+
+
+//{0x15,0,0,0,0,2,{0x52,0x14}},
+	LCDSPI_InitCMD(0x52);
+	LCDSPI_InitDAT(0x14);
+
+//{0x15,0,0,0,0,2,{0x53,0x41}},
+	LCDSPI_InitCMD(0x53);
+	LCDSPI_InitDAT(0x41);
+
+
+//{0x15,0,0,0,0,2,{0x54,0x63}},
+	LCDSPI_InitCMD(0x54);
+	LCDSPI_InitDAT(0x63);
+
+//{0x15,0,0,0,0,2,{0x55,0x36}},
+	LCDSPI_InitCMD(0x55);
+	LCDSPI_InitDAT(0x36);
+
+
+//{0x15,0,0,0,0,2,{0x56,0x52}},
+	LCDSPI_InitCMD(0x56);
+	LCDSPI_InitDAT(0x52);
+
+//{0x15,0,0,0,0,2,{0x57,0x25}},
+	LCDSPI_InitCMD(0x57);
+	LCDSPI_InitDAT(0x25);
+
+//{0x15,0,0,0,0,2,{0x58,0x41}},
+	LCDSPI_InitCMD(0x58);
+	LCDSPI_InitDAT(0x41);
+
+//{0x15,0,0,0,0,2,{0x59,0x14}},
+	LCDSPI_InitCMD(0x59);
+	LCDSPI_InitDAT(0x14);
+
+//{0x15,0,0,0,0,2,{0xFE,0x04}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x04);
+
+//{0x15,0,0,0,0,2,{0x5D,0x01}},
+	LCDSPI_InitCMD(0x5D);
+	LCDSPI_InitDAT(0x01);
+
+//{0x15,0,0,0,0,2,{0x75,0x08}},
+	LCDSPI_InitCMD(0x75);
+	LCDSPI_InitDAT(0x08);
+
+
+//VSR Marping command---L
+//{0x15,0,0,0,0,2,{0xFE,0x04}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x04);
+
+//{0x15,0,0,0,0,2,{0x5E,0x9F}}, //ESTV
+	LCDSPI_InitCMD(0x5E);
+	LCDSPI_InitDAT(0x9F);
+
+//{0x15,0,0,0,0,2,{0x5F,0x43}}, //ECK1 ECK2
+	LCDSPI_InitCMD(0x5F);
+	LCDSPI_InitDAT(0x43);
+
+//{0x15,0,0,0,0,2,{0x60,0xFF}},
+	LCDSPI_InitCMD(0x60);
+	LCDSPI_InitDAT(0xFF);
+
+//{0x15,0,0,0,0,2,{0x61,0xFF}},
+	LCDSPI_InitCMD(0x61);
+	LCDSPI_InitDAT(0xFF);
+
+//{0x15,0,0,0,0,2,{0x62,0xFF}},
+	LCDSPI_InitCMD(0x62);
+	LCDSPI_InitDAT(0xFF);
+
+
+//   VSR Marping command---R
+//{0x15,0,0,0,0,2,{0xFE,0x04}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x04);
+
+//{0x15,0,0,0,0,2,{0x76,0xFF}},
+	LCDSPI_InitCMD(0x76);
+	LCDSPI_InitDAT(0xFF);
+
+//{0x15,0,0,0,0,2,{0x77,0xFF}},
+	LCDSPI_InitCMD(0x77);
+	LCDSPI_InitDAT(0xFF);
+
+//{0x15,0,0,0,0,2,{0x78,0x10}}, //SCK2 STV
+	LCDSPI_InitCMD(0x78);
+	LCDSPI_InitDAT(0x10);
+
+//{0x15,0,0,0,0,2,{0x79,0xF2}}, //SCK1
+	LCDSPI_InitCMD(0x79);
+	LCDSPI_InitDAT(0xF2);
+
+//{0x15,0,0,0,0,2,{0x7A,0xFF}},
+	LCDSPI_InitCMD(0x7A);
+	LCDSPI_InitDAT(0xFF);
+
+
+//VSR1-STV
+//{0x15,0,0,0,0,2,{0xFE,0x04}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x04);
+
+//{0x15,0,0,0,0,2,{0x00,0x8D}},//9D
+	LCDSPI_InitCMD(0x00);
+	LCDSPI_InitDAT(0x8D);
+
+//{0x15,0,0,0,0,2,{0x01,0x00}},
+	LCDSPI_InitCMD(0x01);
+	LCDSPI_InitDAT(0x00);
+
+//{0x15,0,0,0,0,2,{0x02,0x00}},
+	LCDSPI_InitCMD(0x02);
+	LCDSPI_InitDAT(0x00);
+
+//{0x15,0,0,0,0,2,{0x03,0x05}},
+	LCDSPI_InitCMD(0x03);
+	LCDSPI_InitDAT(0x05);
+
+//{0x15,0,0,0,0,2,{0x04,0x00}},//18
+	LCDSPI_InitCMD(0x04);
+	LCDSPI_InitDAT(0x00);
+
+//{0x15,0,0,0,0,2,{0x05,0x05}},
+	LCDSPI_InitCMD(0x05);
+	LCDSPI_InitDAT(0x05);
+
+//{0x15,0,0,0,0,2,{0x06,0x00}},//27
+	LCDSPI_InitCMD(0x06);
+	LCDSPI_InitDAT(0x00);
+
+//{0x15,0,0,0,0,2,{0x07,0x00}},//63
+	LCDSPI_InitCMD(0x07);
+	LCDSPI_InitDAT(0x00);
+
+//{0x15,0,0,0,0,2,{0x08,0x00}},
+	LCDSPI_InitCMD(0x08);
+	LCDSPI_InitDAT(0x00);
+
+//VSR2-SCK2
+//{0x15,0,0,0,0,2,{0xFE,0x04}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x04);
+
+//{0x15,0,0,0,0,2,{0x09,0xCC}},//CD
+	LCDSPI_InitCMD(0x09);
+	LCDSPI_InitDAT(0xCC);
+
+//{0x15,0,0,0,0,2,{0x0A,0x00}},
+	LCDSPI_InitCMD(0x0A);
+	LCDSPI_InitDAT(0x00);
+
+//{0x15,0,0,0,0,2,{0x0B,0x02}},
+	LCDSPI_InitCMD(0x0B);
+	LCDSPI_InitDAT(0x02);
+
+//{0x15,0,0,0,0,2,{0x0C,0x00}},//01
+	LCDSPI_InitCMD(0x0C);
+	LCDSPI_InitDAT(0x00);
+
+//{0x15,0,0,0,0,2,{0x0D,0x60}},//58
+	LCDSPI_InitCMD(0x0D);
+	LCDSPI_InitDAT(0x60);
+
+//{0x15,0,0,0,0,2,{0x0E,0x06}},
+	LCDSPI_InitCMD(0x0E);
+	LCDSPI_InitDAT(0x06);
+
+//{0x15,0,0,0,0,2,{0x0F,0x2C}},//53
+	LCDSPI_InitCMD(0x0F);
+	LCDSPI_InitDAT(0x2C);
+
+//{0x15,0,0,0,0,2,{0x10,0x53}},//F3
+	LCDSPI_InitCMD(0x10);
+	LCDSPI_InitDAT(0x53);
+
+//{0x15,0,0,0,0,2,{0x11,0x00}},
+	LCDSPI_InitCMD(0x11);
+	LCDSPI_InitDAT(0x00);
+
+//VSR3-SCK1
+//{0x15,0,0,0,0,2,{0xFE,0x04}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x04);
+
+//{0x15,0,0,0,0,2,{0x12,0xCC}},//CD
+	LCDSPI_InitCMD(0x12);
+	LCDSPI_InitDAT(0xCC);
+
+//{0x15,0,0,0,0,2,{0x13,0x00}},
+	LCDSPI_InitCMD(0x13);
+	LCDSPI_InitDAT(0x00);
+
+//{0x15,0,0,0,0,2,{0x14,0x02}},
+	LCDSPI_InitCMD(0x14);
+	LCDSPI_InitDAT(0x02);
+
+//{0x15,0,0,0,0,2,{0x15,0x00}},//01
+	LCDSPI_InitCMD(0x15);
+	LCDSPI_InitDAT(0x00);
+
+//{0x15,0,0,0,0,2,{0x16,0x60}},//58
+	LCDSPI_InitCMD(0x16);
+	LCDSPI_InitDAT(0x60);
+
+//{0x15,0,0,0,0,2,{0x17,0x05}},
+	LCDSPI_InitCMD(0x17);
+	LCDSPI_InitDAT(0x05);
+
+//{0x15,0,0,0,0,2,{0x18,0x2C}},//53
+	LCDSPI_InitCMD(0x18);
+	LCDSPI_InitDAT(0x2C);
+
+//{0x15,0,0,0,0,2,{0x19,0x53}},//F3
+	LCDSPI_InitCMD(0x19);
+	LCDSPI_InitDAT(0x53);
+
+//{0x15,0,0,0,0,2,{0x1A,0x00}},
+	LCDSPI_InitCMD(0x1A);
+	LCDSPI_InitDAT(0x00);
+
+
+//VSR4-ECK2
+//{0x15,0,0,0,0,2,{0xFE,0x04}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x04);
+
+//{0x15,0,0,0,0,2,{0x1B,0xDC}},
+	LCDSPI_InitCMD(0x1B);
+	LCDSPI_InitDAT(0xDC);
+
+//{0x15,0,0,0,0,2,{0x1C,0x00}},
+	LCDSPI_InitCMD(0x1C);
+	LCDSPI_InitDAT(0x00);
+
+//{0x15,0,0,0,0,2,{0x1D,0x04}},
+	LCDSPI_InitCMD(0x1D);
+	LCDSPI_InitDAT(0x04);
+
+//{0x15,0,0,0,0,2,{0x1E,0x02}},
+	LCDSPI_InitCMD(0x1E);
+	LCDSPI_InitDAT(0x02);
+
+//{0x15,0,0,0,0,2,{0x1F,0x18}},
+	LCDSPI_InitCMD(0x1F);
+	LCDSPI_InitDAT(0x18);
+
+//{0x15,0,0,0,0,2,{0x20,0x06}},
+	LCDSPI_InitCMD(0x20);
+	LCDSPI_InitDAT(0x06);
+
+//{0x15,0,0,0,0,2,{0x21,0x3D}},
+	LCDSPI_InitCMD(0x21);
+	LCDSPI_InitDAT(0x3D);
+
+//{0x15,0,0,0,0,2,{0x22,0x75}},
+	LCDSPI_InitCMD(0x22);
+	LCDSPI_InitDAT(0x75);
+
+//{0x15,0,0,0,0,2,{0x23,0x00}},
+	LCDSPI_InitCMD(0x23);
+	LCDSPI_InitDAT(0x00);
+
+
+//VSR5-ECK1
+//{0x15,0,0,0,0,2,{0xFE,0x04}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x04);
+
+//{0x15,0,0,0,0,2,{0x24,0xDC}},
+	LCDSPI_InitCMD(0x24);
+	LCDSPI_InitDAT(0xDC);
+
+//{0x15,0,0,0,0,2,{0x25,0x00}},
+	LCDSPI_InitCMD(0x25);
+	LCDSPI_InitDAT(0x00);
+
+//{0x15,0,0,0,0,2,{0x26,0x04}},
+	LCDSPI_InitCMD(0x26);
+	LCDSPI_InitDAT(0x04);
+
+//{0x15,0,0,0,0,2,{0x27,0x02}},
+	LCDSPI_InitCMD(0x27);
+	LCDSPI_InitDAT(0x02);
+
+//{0x15,0,0,0,0,2,{0x28,0x18}},
+	LCDSPI_InitCMD(0x28);
+	LCDSPI_InitDAT(0x18);
+
+//{0x15,0,0,0,0,2,{0x29,0x04}},
+	LCDSPI_InitCMD(0x29);
+	LCDSPI_InitDAT(0x04);
+
+//{0x15,0,0,0,0,2,{0x2A,0x3D}},
+	LCDSPI_InitCMD(0x2A);
+	LCDSPI_InitDAT(0x3D);
+
+//{0x15,0,0,0,0,2,{0x2B,0x75}},
+	LCDSPI_InitCMD(0x2B);
+	LCDSPI_InitDAT(0x75);
+
+//{0x15,0,0,0,0,2,{0x2D,0x00}},
+	LCDSPI_InitCMD(0x2D);
+	LCDSPI_InitDAT(0x00);
+
+
+//VEN EM-STV
+//{0x15,0,0,0,0,2,{0xFE,0x04}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x04);
+
+//{0x15,0,0,0,0,2,{0x53,0x8A}},
+	LCDSPI_InitCMD(0x53);
+	LCDSPI_InitDAT(0x8A);
+
+//{0x15,0,0,0,0,2,{0x54,0x78}},
+	LCDSPI_InitCMD(0x54);
+	LCDSPI_InitDAT(0x78);
+
+
+//{0x15,0,0,0,0,2,{0x55,0x08}},
+	LCDSPI_InitCMD(0x55);
+	LCDSPI_InitDAT(0x08);
+
+//{0x15,0,0,0,0,2,{0x56,0x0A}},
+	LCDSPI_InitCMD(0x56);
+	LCDSPI_InitDAT(0x0A);
+
+
+//{0x15,0,0,0,0,2,{0x58,0x2A}},
+	LCDSPI_InitCMD(0x58);
+	LCDSPI_InitDAT(0x2A);
+
+//{0x15,0,0,0,0,2,{0x59,0x00}},
+	LCDSPI_InitCMD(0x59);
+	LCDSPI_InitDAT(0x00);
+
+//{0x15,0,0,0,0,2,{0x65,0x02}}, 
+	LCDSPI_InitCMD(0x65);
+	LCDSPI_InitDAT(0x02);
+
+//{0x15,0,0,0,0,2,{0x66,0x0A}}, 
+	LCDSPI_InitCMD(0x66);
+	LCDSPI_InitDAT(0x0A);
+
+//{0x15,0,0,0,0,2,{0x67,0x00}},
+	LCDSPI_InitCMD(0x67);
+	LCDSPI_InitDAT(0x00);
+
+//initialcode_add()
+
+//{0x15,0,0,0,0,2,{0xFE,0x07}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x07);
+
+//{0x15,0,0,0,0,2,{0x15,0x04}},
+	LCDSPI_InitCMD(0x15);
+	LCDSPI_InitDAT(0x04);
+
+//{0x15,0,0,0,0,2,{0xFE,0x00}},
+	LCDSPI_InitCMD(0xFE);
+	LCDSPI_InitDAT(0x00);
+//{0x15,0,0,0,0,2,{0xC4, 0x80}},
+	LCDSPI_InitCMD(0xC4);
+	LCDSPI_InitDAT(0x80);
+
+
+//{0x15,0,0,0,0,2,{0x35,0x00}},
+	LCDSPI_InitCMD(0x35);
+	LCDSPI_InitDAT(0x00);
+
+//{0x15,0,0,0,0,2,{0x51,0xFF}},
+	LCDSPI_InitCMD(0x51);
+	LCDSPI_InitDAT(0xFF);
+
+//{0x39,0,0,0,0,5,{0x2A,0x00,0x06,0x01,0x8B}},
+	LCDSPI_InitCMD(0x2A);
+	LCDSPI_InitDAT(0x00);
+	LCDSPI_InitDAT(0x06);
+	LCDSPI_InitDAT(0x01);
+	LCDSPI_InitDAT(0x8B);
+//{0x39,0,0,0,0,5,{0x2B,0x00,0x00,0x01,0x85}},
+	LCDSPI_InitCMD(0x2B);
+	LCDSPI_InitDAT(0x00);
+	LCDSPI_InitDAT(0x00);
+	LCDSPI_InitDAT(0x01);
+	LCDSPI_InitDAT(0x85);
+//{0x05,0,0,0,120,5,{0x11}},        //sleep out
+	LCDSPI_InitCMD(0x11);
+
+//{0x05,0,0,0,0,5,{0x29}},  
+	LCDSPI_InitCMD(0x29);
+}
+#else
+void lcd_rm69330_init(void)
+{
+    //{0x15,0,0,0,0,2,{0xFE,0x01}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x01);
+    
+    //{0x15,0,0,0,0,2,{0x05,0x10}},
+    LCDSPI_InitCMD_QSPI_single(0x05, 0x10);
+    
+    //{0x15,0,0,0,0,2,{0x06,0x62}},
+    LCDSPI_InitCMD_QSPI_single(0x06, 0x62);
+    
+    //{0x15,0,0,0,0,2,{0x0D,0x00}}, 
+    LCDSPI_InitCMD_QSPI_single(0x0D, 0x00);
+    
+    //{0x15,0,0,0,0,2,{0x0E,0x81}},//AVDD Charge Pump 81H-6.2V
+    LCDSPI_InitCMD_QSPI_single(0x0E, 0x81);
+    
+    //{0x15,0,0,0,0,2,{0x0F,0x81}},//AVDD Charge Pump 81H-6.2V idle
+    LCDSPI_InitCMD_QSPI_single(0x0F, 0x81);
+    
+    //{0x15,0,0,0,0,2,{0x10,0x11}},//AVDD=2VCI
+    LCDSPI_InitCMD_QSPI_single(0x10, 0x11);
+    
+    //{0x15,0,0,0,0,2,{0x11,0x81}},//VCL=-VCI,
+    LCDSPI_InitCMD_QSPI_single(0x11, 0x81);
+    
+    //{0x15,0,0,0,0,2,{0x12,0x81}},
+    LCDSPI_InitCMD_QSPI_single(0x12, 0x81);
+    
+    //{0x15,0,0,0,0,2,{0x13,0x80}},//VGH Charge Pump
+    LCDSPI_InitCMD_QSPI_single(0x13, 0x80);
+    
+    //{0x15,0,0,0,0,2,{0x14,0x80}},
+    LCDSPI_InitCMD_QSPI_single(0x14, 0x80);
+    
+    //{0x15,0,0,0,0,2,{0x15,0x81}},//VGL Charge Pump  VCL-AVDD
+    LCDSPI_InitCMD_QSPI_single(0x15, 0x81);
+    
+    //{0x15,0,0,0,0,2,{0x16,0x81}},//VGL
+    LCDSPI_InitCMD_QSPI_single(0x16, 0x81);
+    
+    //{0x15,0,0,0,0,2,{0x18,0x66}},//VGHR66=6V
+    LCDSPI_InitCMD_QSPI_single(0x18, 0x66);
+    
+    //{0x15,0,0,0,0,2,{0x19,0x88}},//VGLR aa=-7V 44=-4v
+    LCDSPI_InitCMD_QSPI_single(0x19, 0x88);
+    
+    //{0x15,0,0,0,0,2,{0x5B,0x10}},//VREFPN5 Regulator Enable
+    LCDSPI_InitCMD_QSPI_single(0x5B, 0x10);
+    
+    //{0x15,0,0,0,0,2,{0x5C,0x55}},//VPREF5 and VNREF5 output status(default)
+    LCDSPI_InitCMD_QSPI_single(0x5C, 0x55);
+    
+    //{0x15,0,0,0,0,2,{0x62,0x19}},//Normal 19 VREFN=-3V 2e=-5v
+    LCDSPI_InitCMD_QSPI_single(0x62, 0x19);
+    
+    //{0x15,0,0,0,0,2,{0x63,0x19}},//Idle VREFN
+    LCDSPI_InitCMD_QSPI_single(0x63, 0x19);
+    
+    //{0x15,0,0,0,0,2,{0x70,0x55}},//Source Sequence 2
+    LCDSPI_InitCMD_QSPI_single(0x70, 0x55);
+    
+    //{0x15,0,0,0,0,2,{0x74,0x0C}}, //OVDD / SD power source control
+    LCDSPI_InitCMD_QSPI_single(0x74, 0x0C);
+    
+    //{0x15,0,0,0,0,2,{0xC5,0x10}}, // NOR=IDLE=GAM1 // HBM=GAM2
+    LCDSPI_InitCMD_QSPI_single(0xC5, 0x10);
+    
+    //{0x15,0,0,0,0,2,{0x25,0x03}}, //Normal
+    LCDSPI_InitCMD_QSPI_single(0x25, 0x03);
+    
+    //{0x15,0,0,0,0,2,{0x26,0x80}},
+    LCDSPI_InitCMD_QSPI_single(0x26, 0x80);
+    
+    //{0x15,0,0,0,0,2,{0x27,0x08}},
+    LCDSPI_InitCMD_QSPI_single(0x27, 0x08);
+    
+    //{0x15,0,0,0,0,2,{0x28,0x08}},
+    LCDSPI_InitCMD_QSPI_single(0x28, 0x08);
+    
+    //{0x15,0,0,0,0,2,{0x2A,0x23}},  //IDLE  
+    LCDSPI_InitCMD_QSPI_single(0x2A, 0x23);
+    
+    //{0x15,0,0,0,0,2,{0x2B,0x80}},
+    LCDSPI_InitCMD_QSPI_single(0x2B, 0x80);
+    
+    //{0x15,0,0,0,0,2,{0x2D,0x08}},//VBP
+    LCDSPI_InitCMD_QSPI_single(0x2D, 0x08);
+    
+    //{0x15,0,0,0,0,2,{0x2F,0x08}},//VFP
+    LCDSPI_InitCMD_QSPI_single(0x2F, 0x08);
+    
+    //{0x15,0,0,0,0,2,{0x30,0x43}},  //43: 15Hz
+    LCDSPI_InitCMD_QSPI_single(0x30, 0x43);
+    
+    //{0x15,0,0,0,0,2,{0x66,0x90}},  //Idle interal elvdd,elvss
+    LCDSPI_InitCMD_QSPI_single(0x66, 0x90);
+    
+    //{0x15,0,0,0,0,2,{0x72,0x1A}},  //OVDD  4.6V
+    LCDSPI_InitCMD_QSPI_single(0x72, 0x1A);
+    
+    //{0x15,0,0,0,0,2,{0x73,0x13}},  //OVSS  -2.2V
+    LCDSPI_InitCMD_QSPI_single(0x73, 0x13);
+    
+    //{0x15,0,0,0,0,2,{0xFE,0x01}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x01);
+    
+    //{0x15,0,0,0,0,2,{0x6A,0x03}},  //RT4723 OVSS -2.2V
+    LCDSPI_InitCMD_QSPI_single(0x6A, 0x17);
+    
+    //{0x15,0,0,0,0,2,{0x1B,0x00}},  //8:Deep idle 8color 0:HBM 24bit
+    LCDSPI_InitCMD_QSPI_single(0x1B, 0x00);
+    
+    //VSR power saving
+    //{0x15,0,0,0,0,2,{0x1D,0x03}},
+    LCDSPI_InitCMD_QSPI_single(0x1D, 0x03);
+    
+    //{0x15,0,0,0,0,2,{0x1E,0x03}},
+    LCDSPI_InitCMD_QSPI_single(0x1E, 0x03);
+    
+    //{0x15,0,0,0,0,2,{0x1F,0x0C}},   //zhuankong crosstalk
+    LCDSPI_InitCMD_QSPI_single(0x1F, 0x0C);
+    
+    //{0x15,0,0,0,0,2,{0x20,0x03}},
+    LCDSPI_InitCMD_QSPI_single(0x20, 0x03);
+    
+    //{0x15,0,0,0,0,2,{0xFE,0x01}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x01);
+    
+    //{0x15,0,0,0,0,2,{0x36,0x00}},
+    LCDSPI_InitCMD_QSPI_single(0x36, 0x00);
+    
+    //{0x15,0,0,0,0,2,{0x6C,0x80}},  //SD_COPEN_OFF
+    LCDSPI_InitCMD_QSPI_single(0x6C, 0x80);
+    
+    //{0x15,0,0,0,0,2,{0x6D,0x19}},  //VGMP VGSP turn off at idle mode
+    LCDSPI_InitCMD_QSPI_single(0x6D, 0x19);
+    
+    //{0x15,0,0,0,0,2,{0xFE,0x04}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x04);
+    
+    //{0x15,0,0,0,0,2,{0x63,0x00}},
+    LCDSPI_InitCMD_QSPI_single(0x63, 0x00);
+    
+    //{0x15,0,0,0,0,2,{0x64,0x0E}},
+    LCDSPI_InitCMD_QSPI_single(0x64, 0x0E);
+    
+    //Gamma
+    //{0x15,0,0,0,0,2,{0xFE,0x02}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x02);
+    
+    //{0x15,0,0,0,0,2,{0xA9,0x40}},//6V VGMP
+    LCDSPI_InitCMD_QSPI_single(0xA9, 0x40);
+    
+    //{0x15,0,0,0,0,2,{0xAA,0xB8}},//2.5V VGSP
+    LCDSPI_InitCMD_QSPI_single(0xAA, 0xB8);
+    
+    //{0x15,0,0,0,0,2,{0xAB,0x01}},//
+    LCDSPI_InitCMD_QSPI_single(0xAB, 0x01);
+    
+    //{0x15,0,0,0,0,2,{0xFE,0x03}}, //page2
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x03);
+    
+    //{0x15,0,0,0,0,2,{0xA9,0x40}}, //6V VGMP
+    LCDSPI_InitCMD_QSPI_single(0xA9, 0x40);
+    
+    //{0x15,0,0,0,0,2,{0xAA,0x90}}, //2.5V VGSP
+    LCDSPI_InitCMD_QSPI_single(0xAA, 0x90);
+    
+    //{0x15,0,0,0,0,2,{0xAB,0x01}}, //
+    LCDSPI_InitCMD_QSPI_single(0xAB, 0x01);
+    
+    //Switch Timing Control
+    //{0x15,0,0,0,0,2,{0xFE,0x01}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x01);
+    
+    //{0x15,0,0,0,0,2,{0x3A,0x00}},//05
+    LCDSPI_InitCMD_QSPI_single(0x3A, 0x00);
+    
+    //{0x15,0,0,0,0,2,{0x3B,0x41}},//00
+    LCDSPI_InitCMD_QSPI_single(0x3B, 0x41);
+    
+    //{0x15,0,0,0,0,2,{0x3D,0x17}},//05
+    LCDSPI_InitCMD_QSPI_single(0x3D, 0x17);
+    
+    //{0x15,0,0,0,0,2,{0x3F,0x42}}, //42
+    LCDSPI_InitCMD_QSPI_single(0x3F, 0x42);
+    
+    //{0x15,0,0,0,0,2,{0x40,0x17}},//09
+    LCDSPI_InitCMD_QSPI_single(0x40, 0x17);
+    
+    //{0x15,0,0,0,0,2,{0x41,0x06}},//06
+    LCDSPI_InitCMD_QSPI_single(0x41, 0x06);
+    
+    //{0x15,0,0,0,0,2,{0x37,0x0C}},//0C:VGSP NO SWAP //0C
+    LCDSPI_InitCMD_QSPI_single(0x37, 0x0C);
+    
+    //SW MAPPING
+    //{0x15,0,0,0,0,2,{0xFE,0x0C}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x0C);
+    
+    //{0x15,0,0,0,0,2,{0x07,0x1F}},
+    LCDSPI_InitCMD_QSPI_single(0x07, 0x1F);
+    
+    //{0x15,0,0,0,0,2,{0x08,0x2F}},
+    LCDSPI_InitCMD_QSPI_single(0x08, 0x2F);
+    
+    //{0x15,0,0,0,0,2,{0x09,0x3F}},
+    LCDSPI_InitCMD_QSPI_single(0x09, 0x3F);
+    
+    //{0x15,0,0,0,0,2,{0x0A,0x4F}},
+    LCDSPI_InitCMD_QSPI_single(0x0A, 0x4F);
+    
+    //{0x15,0,0,0,0,2,{0x0B,0x5F}},
+    LCDSPI_InitCMD_QSPI_single(0x0B, 0x5F);
+    
+    //{0x15,0,0,0,0,2,{0x0C,0x6F}},
+    LCDSPI_InitCMD_QSPI_single(0x0C, 0x6F);
+    
+    //{0x15,0,0,0,0,2,{0x0D,0xFF}},
+    LCDSPI_InitCMD_QSPI_single(0x0D, 0xFF);
+    
+    //{0x15,0,0,0,0,2,{0x0E,0xFF}},
+    LCDSPI_InitCMD_QSPI_single(0x0E, 0xFF);
+    
+    //{0x15,0,0,0,0,2,{0x0F,0xFF}},
+    LCDSPI_InitCMD_QSPI_single(0x0F, 0xFF);
+    
+    //{0x15,0,0,0,0,2,{0x10,0xFF}},
+    LCDSPI_InitCMD_QSPI_single(0x10, 0xFF);
+    
+    //181006
+    //SW OUTPUT
+    //{0x15,0,0,0,0,2,{0xFE,0x01}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x01);
+    
+    //{0x15,0,0,0,0,2,{0x42,0x14}},
+    LCDSPI_InitCMD_QSPI_single(0x42, 0x14);
+    
+    //{0x15,0,0,0,0,2,{0x43,0x41}},
+    LCDSPI_InitCMD_QSPI_single(0x43, 0x41);
+    
+    //{0x15,0,0,0,0,2,{0x44,0x25}},
+    LCDSPI_InitCMD_QSPI_single(0x44, 0x25);
+    
+    //{0x15,0,0,0,0,2,{0x45,0x52}},
+    LCDSPI_InitCMD_QSPI_single(0x45, 0x52);
+    
+    //{0x15,0,0,0,0,2,{0x46,0x36}},
+    LCDSPI_InitCMD_QSPI_single(0x46, 0x36);
+    
+    //{0x15,0,0,0,0,2,{0x47,0x63}},
+    LCDSPI_InitCMD_QSPI_single(0x47, 0x63);
+    
+    //{0x15,0,0,0,0,2,{0x48,0x41}},
+    LCDSPI_InitCMD_QSPI_single(0x48, 0x41);
+    
+    //{0x15,0,0,0,0,2,{0x49,0x14}},
+    LCDSPI_InitCMD_QSPI_single(0x49, 0x14);
+    
+    //{0x15,0,0,0,0,2,{0x4A,0x52}},
+    LCDSPI_InitCMD_QSPI_single(0x4A, 0x52);
+    
+    //{0x15,0,0,0,0,2,{0x4B,0x25}},
+    LCDSPI_InitCMD_QSPI_single(0x4B, 0x25);
+    
+    //{0x15,0,0,0,0,2,{0x4C,0x63}},
+    LCDSPI_InitCMD_QSPI_single(0x4C, 0x63);
+    
+    //{0x15,0,0,0,0,2,{0x4D,0x36}},
+    LCDSPI_InitCMD_QSPI_single(0x4D, 0x36);
+    
+    //SW DATA
+    //{0x15,0,0,0,0,2,{0x4E,0x36}},
+    LCDSPI_InitCMD_QSPI_single(0x4E, 0x36);
+    
+    //{0x15,0,0,0,0,2,{0x4F,0x63}},
+    LCDSPI_InitCMD_QSPI_single(0x4F, 0x63);
+    
+    //{0x15,0,0,0,0,2,{0x50,0x25}},
+    LCDSPI_InitCMD_QSPI_single(0x50, 0x25);
+    
+    //{0x15,0,0,0,0,2,{0x51,0x52}},
+    LCDSPI_InitCMD_QSPI_single(0x51, 0x52);
+    
+    //{0x15,0,0,0,0,2,{0x52,0x14}},
+    LCDSPI_InitCMD_QSPI_single(0x52, 0x14);
+    
+    //{0x15,0,0,0,0,2,{0x53,0x41}},
+    LCDSPI_InitCMD_QSPI_single(0x53, 0x41);
+    
+    //{0x15,0,0,0,0,2,{0x54,0x63}},
+    LCDSPI_InitCMD_QSPI_single(0x54, 0x63);
+    
+    //{0x15,0,0,0,0,2,{0x55,0x36}},
+    LCDSPI_InitCMD_QSPI_single(0x55, 0x36);
+    
+    //{0x15,0,0,0,0,2,{0x56,0x52}},
+    LCDSPI_InitCMD_QSPI_single(0x56, 0x52);
+    
+    //{0x15,0,0,0,0,2,{0x57,0x25}},
+    LCDSPI_InitCMD_QSPI_single(0x57, 0x25);
+    
+    //{0x15,0,0,0,0,2,{0x58,0x41}},
+    LCDSPI_InitCMD_QSPI_single(0x58, 0x41);
+    
+    //{0x15,0,0,0,0,2,{0x59,0x14}},
+    LCDSPI_InitCMD_QSPI_single(0x59, 0x14);
+    
+    //{0x15,0,0,0,0,2,{0xFE,0x04}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x04);
+    
+    //{0x15,0,0,0,0,2,{0x5D,0x01}},
+    LCDSPI_InitCMD_QSPI_single(0x5D, 0x01);
+    
+    //{0x15,0,0,0,0,2,{0x75,0x08}},
+    LCDSPI_InitCMD_QSPI_single(0x75, 0x08);
+    
+    //VSR Marping command---L
+    //{0x15,0,0,0,0,2,{0xFE,0x04}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x04);
+    
+    //{0x15,0,0,0,0,2,{0x5E,0x9F}}, //ESTV
+    LCDSPI_InitCMD_QSPI_single(0x5E, 0x9F);
+    
+    //{0x15,0,0,0,0,2,{0x5F,0x43}}, //ECK1 ECK2
+    LCDSPI_InitCMD_QSPI_single(0x5F, 0x43);
+    
+    //{0x15,0,0,0,0,2,{0x60,0xFF}},
+    LCDSPI_InitCMD_QSPI_single(0x60, 0xFF);
+    
+    //{0x15,0,0,0,0,2,{0x61,0xFF}},
+    LCDSPI_InitCMD_QSPI_single(0x61, 0xFF);
+    
+    //{0x15,0,0,0,0,2,{0x62,0xFF}},
+    LCDSPI_InitCMD_QSPI_single(0x62, 0xFF);
+    
+    //   VSR Marping command---R
+    //{0x15,0,0,0,0,2,{0xFE,0x04}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x04);
+    
+    //{0x15,0,0,0,0,2,{0x76,0xFF}},
+    LCDSPI_InitCMD_QSPI_single(0x76, 0xFF);
+    
+    //{0x15,0,0,0,0,2,{0x77,0xFF}},
+    LCDSPI_InitCMD_QSPI_single(0x77, 0xFF);
+    
+    //{0x15,0,0,0,0,2,{0x78,0x10}}, //SCK2 STV
+    LCDSPI_InitCMD_QSPI_single(0x78, 0x10);
+    
+    //{0x15,0,0,0,0,2,{0x79,0xF2}}, //SCK1
+    LCDSPI_InitCMD_QSPI_single(0x79, 0xF2);
+    
+    //{0x15,0,0,0,0,2,{0x7A,0xFF}},
+    LCDSPI_InitCMD_QSPI_single(0x7A, 0xFF);
+    
+    //VSR1-STV
+    //{0x15,0,0,0,0,2,{0xFE,0x04}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x04);
+    
+    //{0x15,0,0,0,0,2,{0x00,0x8D}},//9D
+    LCDSPI_InitCMD_QSPI_single(0x00, 0x8D);
+    
+    //{0x15,0,0,0,0,2,{0x01,0x00}},
+    LCDSPI_InitCMD_QSPI_single(0x01, 0x00);
+    
+    //{0x15,0,0,0,0,2,{0x02,0x00}},
+    LCDSPI_InitCMD_QSPI_single(0x02, 0x00);
+    
+    //{0x15,0,0,0,0,2,{0x03,0x05}},
+    LCDSPI_InitCMD_QSPI_single(0x03, 0x05);
+    
+    //{0x15,0,0,0,0,2,{0x04,0x00}},//18
+    LCDSPI_InitCMD_QSPI_single(0x04, 0x00);
+    
+    //{0x15,0,0,0,0,2,{0x05,0x05}},
+    LCDSPI_InitCMD_QSPI_single(0x05, 0x05);
+    
+    //{0x15,0,0,0,0,2,{0x06,0x00}},//27
+    LCDSPI_InitCMD_QSPI_single(0x06, 0x00);
+    
+    //{0x15,0,0,0,0,2,{0x07,0x00}},//63
+    LCDSPI_InitCMD_QSPI_single(0x07, 0x00);
+    
+    //{0x15,0,0,0,0,2,{0x08,0x00}},
+    LCDSPI_InitCMD_QSPI_single(0x08, 0x00);
+    
+    //VSR2-SCK2
+    //{0x15,0,0,0,0,2,{0xFE,0x04}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x04);
+    
+    //{0x15,0,0,0,0,2,{0x09,0xCC}},//CD
+    LCDSPI_InitCMD_QSPI_single(0x09, 0xCC);
+    
+    //{0x15,0,0,0,0,2,{0x0A,0x00}},
+    LCDSPI_InitCMD_QSPI_single(0x0A, 0x00);
+    
+    //{0x15,0,0,0,0,2,{0x0B,0x02}},
+    LCDSPI_InitCMD_QSPI_single(0x0B, 0x02);
+    
+    //{0x15,0,0,0,0,2,{0x0C,0x00}},//01
+    LCDSPI_InitCMD_QSPI_single(0x0C, 0x00);
+    
+    //{0x15,0,0,0,0,2,{0x0D,0x60}},//58
+    LCDSPI_InitCMD_QSPI_single(0x0D, 0x60);
+    
+    //{0x15,0,0,0,0,2,{0x0E,0x06}},
+    LCDSPI_InitCMD_QSPI_single(0x0E, 0x06);
+    
+    //{0x15,0,0,0,0,2,{0x0F,0x2C}},//53
+    LCDSPI_InitCMD_QSPI_single(0x0F, 0x2C);
+    
+    //{0x15,0,0,0,0,2,{0x10,0x53}},//F3
+    LCDSPI_InitCMD_QSPI_single(0x10, 0x53);
+    
+    //{0x15,0,0,0,0,2,{0x11,0x00}},
+    LCDSPI_InitCMD_QSPI_single(0x11, 0x00);
+    
+    //VSR3-SCK1
+    //{0x15,0,0,0,0,2,{0xFE,0x04}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x04);
+    
+    //{0x15,0,0,0,0,2,{0x12,0xCC}},//CD
+    LCDSPI_InitCMD_QSPI_single(0x12, 0xCC);
+    
+    //{0x15,0,0,0,0,2,{0x13,0x00}},
+    LCDSPI_InitCMD_QSPI_single(0x13, 0x00);
+    
+    //{0x15,0,0,0,0,2,{0x14,0x02}},
+    LCDSPI_InitCMD_QSPI_single(0x14, 0x02);
+    
+    //{0x15,0,0,0,0,2,{0x15,0x00}},//01
+    LCDSPI_InitCMD_QSPI_single(0x15, 0x00);
+    
+    //{0x15,0,0,0,0,2,{0x16,0x60}},//58
+    LCDSPI_InitCMD_QSPI_single(0x16, 0x60);
+    
+    //{0x15,0,0,0,0,2,{0x17,0x05}},
+    LCDSPI_InitCMD_QSPI_single(0x17, 0x05);
+    
+    //{0x15,0,0,0,0,2,{0x18,0x2C}},//53
+    LCDSPI_InitCMD_QSPI_single(0x18, 0x2C);
+    
+    //{0x15,0,0,0,0,2,{0x19,0x53}},//F3
+    LCDSPI_InitCMD_QSPI_single(0x19, 0x53);
+    
+    //{0x15,0,0,0,0,2,{0x1A,0x00}},
+    LCDSPI_InitCMD_QSPI_single(0x1A, 0x00);
+    
+    //VSR4-ECK2
+    //{0x15,0,0,0,0,2,{0xFE,0x04}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x04);
+    
+    //{0x15,0,0,0,0,2,{0x1B,0xDC}},
+    LCDSPI_InitCMD_QSPI_single(0x1B, 0xDC);
+    
+    //{0x15,0,0,0,0,2,{0x1C,0x00}},
+    LCDSPI_InitCMD_QSPI_single(0x1C, 0x00);
+    
+    //{0x15,0,0,0,0,2,{0x1D,0x04}},
+    LCDSPI_InitCMD_QSPI_single(0x1D, 0x04);
+    
+    //{0x15,0,0,0,0,2,{0x1E,0x02}},
+    LCDSPI_InitCMD_QSPI_single(0x1E, 0x02);
+    
+    //{0x15,0,0,0,0,2,{0x1F,0x18}},
+    LCDSPI_InitCMD_QSPI_single(0x1F, 0x18);
+    
+    //{0x15,0,0,0,0,2,{0x20,0x06}},
+    LCDSPI_InitCMD_QSPI_single(0x20, 0x06);
+    
+    //{0x15,0,0,0,0,2,{0x21,0x3D}},
+    LCDSPI_InitCMD_QSPI_single(0x21, 0x3D);
+    
+    //{0x15,0,0,0,0,2,{0x22,0x75}},
+    LCDSPI_InitCMD_QSPI_single(0x22, 0x75);
+    
+    //{0x15,0,0,0,0,2,{0x23,0x00}},
+    LCDSPI_InitCMD_QSPI_single(0x23, 0x00);
+    
+    //VSR5-ECK1
+    //{0x15,0,0,0,0,2,{0xFE,0x04}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x04);
+    
+    //{0x15,0,0,0,0,2,{0x24,0xDC}},
+    LCDSPI_InitCMD_QSPI_single(0x24, 0xDC);
+    
+    //{0x15,0,0,0,0,2,{0x25,0x00}},
+    LCDSPI_InitCMD_QSPI_single(0x25, 0x00);
+    
+    //{0x15,0,0,0,0,2,{0x26,0x04}},
+    LCDSPI_InitCMD_QSPI_single(0x26, 0x04);
+    
+    //{0x15,0,0,0,0,2,{0x27,0x02}},
+    LCDSPI_InitCMD_QSPI_single(0x27, 0x02);
+    
+    //{0x15,0,0,0,0,2,{0x28,0x18}},
+    LCDSPI_InitCMD_QSPI_single(0x28, 0x18);
+    
+    //{0x15,0,0,0,0,2,{0x29,0x04}},
+    LCDSPI_InitCMD_QSPI_single(0x29, 0x04);
+    
+    //{0x15,0,0,0,0,2,{0x2A,0x3D}},
+    LCDSPI_InitCMD_QSPI_single(0x2A, 0x3D);
+    
+    //{0x15,0,0,0,0,2,{0x2B,0x75}},
+    LCDSPI_InitCMD_QSPI_single(0x2B, 0x75);
+    
+    //{0x15,0,0,0,0,2,{0x2D,0x00}},
+    LCDSPI_InitCMD_QSPI_single(0x2D, 0x00);
+    
+    //VEN EM-STV
+    //{0x15,0,0,0,0,2,{0xFE,0x04}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x04);
+    
+    //{0x15,0,0,0,0,2,{0x53,0x8A}},
+    LCDSPI_InitCMD_QSPI_single(0x53, 0x8A);
+    
+    //{0x15,0,0,0,0,2,{0x54,0x78}},
+    LCDSPI_InitCMD_QSPI_single(0x54, 0x78);
+    
+    //{0x15,0,0,0,0,2,{0x55,0x08}},
+    LCDSPI_InitCMD_QSPI_single(0x55, 0x08);
+    
+    //{0x15,0,0,0,0,2,{0x56,0x0A}},
+    LCDSPI_InitCMD_QSPI_single(0x56, 0x0A);
+    
+    //{0x15,0,0,0,0,2,{0x58,0x2A}},
+    LCDSPI_InitCMD_QSPI_single(0x58, 0x2A);
+    
+    //{0x15,0,0,0,0,2,{0x59,0x00}},
+    LCDSPI_InitCMD_QSPI_single(0x59, 0x00);
+    
+    //{0x15,0,0,0,0,2,{0x65,0x02}}, 
+    LCDSPI_InitCMD_QSPI_single(0x65, 0x02);
+    
+    //{0x15,0,0,0,0,2,{0x66,0x0A}}, 
+    LCDSPI_InitCMD_QSPI_single(0x66, 0x0A);
+    
+    //{0x15,0,0,0,0,2,{0x67,0x00}},
+    LCDSPI_InitCMD_QSPI_single(0x67, 0x00);
+    
+    //initialcode_add()
+    //{0x15,0,0,0,0,2,{0xFE,0x07}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x07);
+    
+    //{0x15,0,0,0,0,2,{0x15,0x04}},
+    LCDSPI_InitCMD_QSPI_single(0x15, 0x04);
+    
+    //{0x15,0,0,0,0,2,{0xFE,0x00}},
+    LCDSPI_InitCMD_QSPI_single(0xFE, 0x00);
+    
+    //{0x15,0,0,0,0,2,{0xC4, 0x80}},
+    LCDSPI_InitCMD_QSPI_single(0xC4, 0x80);
+    
+    //{0x15,0,0,0,0,2,{0x35,0x00}},
+    LCDSPI_InitCMD_QSPI_single(0x35, 0x00);
+    
+    //{0x15,0,0,0,0,2,{0x51,0xFF}},
+    LCDSPI_InitCMD_QSPI_single(0x51, 0xFF);
+    
+    //{0x39,0,0,0,0,5,{0x2A,0x00,0x06,0x01,0x8B}},
+    uint8_t axis_x[] = {0x00,0x06,0x01,0x8B};
+    LCDSPI_InitCMD_QSPI(0x2A, axis_x, 4);
+    
+    //{0x39,0,0,0,0,5,{0x2B,0x00,0x00,0x01,0x85}},
+    uint8_t axis_y[] = {0x00,0x06,0x01,0x8B};
+    LCDSPI_InitCMD_QSPI(0x2B, axis_y, 4);
+    
+    LCDSPI_InitCMD_QSPI_single(0x3a, 0x55);	//  //0x55:RGB565  0x77:RGB888
+
+    //{0x05,0,0,0,120,5,{0x11}},        //sleep out
+    LCDSPI_InitCMD_QSPI(0x11, NULL, 0);
+    
+    //{0x05,0,0,0,0,5,{0x29}},  
+    LCDSPI_InitCMD_QSPI(0x29, NULL, 0);
+
+}
+
+#endif
+#else   // from RM69330_Truly1.39_initial_SPI_code_60Hz  OK.txt
+void lcd_rm69330_init(void)
+{
+#if 1   //1.39
+
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x01);
+    LCDSPI_InitCMD(0x05);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x06);	LCDSPI_InitDAT(0x72);
+    LCDSPI_InitCMD(0x0D);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x0E);	LCDSPI_InitDAT(0x81);//AVDD=6V
+    LCDSPI_InitCMD(0x0F);	LCDSPI_InitDAT(0x81);
+    LCDSPI_InitCMD(0x10);	LCDSPI_InitDAT(0x11);//AVDD=3VCI
+    LCDSPI_InitCMD(0x11);	LCDSPI_InitDAT(0x81);//VCL=-VCI
+    LCDSPI_InitCMD(0x12);	LCDSPI_InitDAT(0x81);
+    LCDSPI_InitCMD(0x13);	LCDSPI_InitDAT(0x80);//VGH=AVDD
+    LCDSPI_InitCMD(0x14);	LCDSPI_InitDAT(0x80);
+    LCDSPI_InitCMD(0x15);	LCDSPI_InitDAT(0x81);//VGL=
+    LCDSPI_InitCMD(0x16);	LCDSPI_InitDAT(0x81);
+    LCDSPI_InitCMD(0x18);	LCDSPI_InitDAT(0x66);//VGHR=6V
+    LCDSPI_InitCMD(0x19);	LCDSPI_InitDAT(0x88);//VGLR=-6V
+    LCDSPI_InitCMD(0x5B);	LCDSPI_InitDAT(0x10);//VREFPN5 Regulator Enable
+    LCDSPI_InitCMD(0x5C);	LCDSPI_InitDAT(0x55);
+    LCDSPI_InitCMD(0x62);	LCDSPI_InitDAT(0x19);//Normal VREFN
+    LCDSPI_InitCMD(0x63);	LCDSPI_InitDAT(0x19);//Idle VREFN
+    LCDSPI_InitCMD(0x70);	LCDSPI_InitDAT(0x54);//
+    LCDSPI_InitCMD(0x74);	LCDSPI_InitDAT(0x0C);
+    LCDSPI_InitCMD(0xC5);	LCDSPI_InitDAT(0x10); // NOR=IDLE=GAM1 // HBM=GAM2
+
+
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x01);
+    LCDSPI_InitCMD(0x25);	LCDSPI_InitDAT(0x03);
+    LCDSPI_InitCMD(0x26);	LCDSPI_InitDAT(0x32);
+    LCDSPI_InitCMD(0x27);	LCDSPI_InitDAT(0x0A);
+    LCDSPI_InitCMD(0x28);	LCDSPI_InitDAT(0x08);
+    LCDSPI_InitCMD(0x2A);	LCDSPI_InitDAT(0x03);
+    LCDSPI_InitCMD(0x2B);	LCDSPI_InitDAT(0x32);
+    LCDSPI_InitCMD(0x2D);	LCDSPI_InitDAT(0x0A);
+    LCDSPI_InitCMD(0x2F);	LCDSPI_InitDAT(0x08);
+    LCDSPI_InitCMD(0x30);	LCDSPI_InitDAT(0x43);//43: 15Hz
+
+    LCDSPI_InitCMD(0x66);	LCDSPI_InitDAT(0x90);
+    LCDSPI_InitCMD(0x72);	LCDSPI_InitDAT(0x1A);//OVDD  4.6V
+    LCDSPI_InitCMD(0x73);	LCDSPI_InitDAT(0x13);//OVSS  -2.2V
+
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x01);
+    LCDSPI_InitCMD(0x6A);	LCDSPI_InitDAT(0x17);//RT4723  daz20013  0x17=-2.2
+
+    LCDSPI_InitCMD(0x1B);	LCDSPI_InitDAT(0x00);
+
+    //VSR power saving
+    LCDSPI_InitCMD(0x1D);	LCDSPI_InitDAT(0x03); 
+    LCDSPI_InitCMD(0x1E);	LCDSPI_InitDAT(0x03); 
+    LCDSPI_InitCMD(0x1F);	LCDSPI_InitDAT(0x03); 
+    LCDSPI_InitCMD(0x20);	LCDSPI_InitDAT(0x03); 
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x01); 
+    LCDSPI_InitCMD(0x36);	LCDSPI_InitDAT(0x00); 
+    LCDSPI_InitCMD(0x6C);	LCDSPI_InitDAT(0x80); 
+    LCDSPI_InitCMD(0x6D);	LCDSPI_InitDAT(0x19);//VGMP VGSP turn off at idle mode
+                                           
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x63);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x64);	LCDSPI_InitDAT(0x0E);
+
+    //Gamma1 - AOD/Normal
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x02);
+    LCDSPI_InitCMD(0xA9);	LCDSPI_InitDAT(0x30);//5.8V VGMP
+    LCDSPI_InitCMD(0xAA);	LCDSPI_InitDAT(0xB9);//2.5V VGSP
+    LCDSPI_InitCMD(0xAB);	LCDSPI_InitDAT(0x01);
+
+
+    //Gamma2 - HBM
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x03);//page2
+    LCDSPI_InitCMD(0xA9);	LCDSPI_InitDAT(0x30);//5.8V VGMP
+    LCDSPI_InitCMD(0xAA);	LCDSPI_InitDAT(0x90);//2V VGSP
+    LCDSPI_InitCMD(0xAB);	LCDSPI_InitDAT(0x01);
+
+    //SW MAPPING
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x0C);
+    LCDSPI_InitCMD(0x07);	LCDSPI_InitDAT(0x1F);
+    LCDSPI_InitCMD(0x08);	LCDSPI_InitDAT(0x2F);
+    LCDSPI_InitCMD(0x09);	LCDSPI_InitDAT(0x3F);
+    LCDSPI_InitCMD(0x0A);	LCDSPI_InitDAT(0x4F);
+    LCDSPI_InitCMD(0x0B);	LCDSPI_InitDAT(0x5F);
+    LCDSPI_InitCMD(0x0C);	LCDSPI_InitDAT(0x6F);
+    LCDSPI_InitCMD(0x0D);	LCDSPI_InitDAT(0xFF);
+    LCDSPI_InitCMD(0x0E);	LCDSPI_InitDAT(0xFF);
+    LCDSPI_InitCMD(0x0F);	LCDSPI_InitDAT(0xFF);
+    LCDSPI_InitCMD(0x10);	LCDSPI_InitDAT(0xFF);
+
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x01);
+    LCDSPI_InitCMD(0x42);	LCDSPI_InitDAT(0x14);
+    LCDSPI_InitCMD(0x43);	LCDSPI_InitDAT(0x41);
+    LCDSPI_InitCMD(0x44);	LCDSPI_InitDAT(0x25);
+    LCDSPI_InitCMD(0x45);	LCDSPI_InitDAT(0x52);
+    LCDSPI_InitCMD(0x46);	LCDSPI_InitDAT(0x36);
+    LCDSPI_InitCMD(0x47);	LCDSPI_InitDAT(0x63);
+
+    LCDSPI_InitCMD(0x48);	LCDSPI_InitDAT(0x41);
+    LCDSPI_InitCMD(0x49);	LCDSPI_InitDAT(0x14);
+    LCDSPI_InitCMD(0x4A);	LCDSPI_InitDAT(0x52);
+    LCDSPI_InitCMD(0x4B);	LCDSPI_InitDAT(0x25);
+    LCDSPI_InitCMD(0x4C);	LCDSPI_InitDAT(0x63);
+    LCDSPI_InitCMD(0x4D);	LCDSPI_InitDAT(0x36);
+
+
+    LCDSPI_InitCMD(0x4E);	LCDSPI_InitDAT(0x16);
+    LCDSPI_InitCMD(0x4F);	LCDSPI_InitDAT(0x61);
+    LCDSPI_InitCMD(0x50);	LCDSPI_InitDAT(0x25);
+    LCDSPI_InitCMD(0x51);	LCDSPI_InitDAT(0x52);
+    LCDSPI_InitCMD(0x52);	LCDSPI_InitDAT(0x34);
+    LCDSPI_InitCMD(0x53);	LCDSPI_InitDAT(0x43);
+
+    LCDSPI_InitCMD(0x54);	LCDSPI_InitDAT(0x61);
+    LCDSPI_InitCMD(0x55);	LCDSPI_InitDAT(0x16);
+    LCDSPI_InitCMD(0x56);	LCDSPI_InitDAT(0x52);
+    LCDSPI_InitCMD(0x57);	LCDSPI_InitDAT(0x25);
+    LCDSPI_InitCMD(0x58);	LCDSPI_InitDAT(0x43);
+    LCDSPI_InitCMD(0x59);	LCDSPI_InitDAT(0x34);
+    //Switch Timing Control
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x01);
+    LCDSPI_InitCMD(0x3A);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x3B);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x3D);	LCDSPI_InitDAT(0x12);
+    LCDSPI_InitCMD(0x3F);	LCDSPI_InitDAT(0x37);
+    LCDSPI_InitCMD(0x40);	LCDSPI_InitDAT(0x12);
+    LCDSPI_InitCMD(0x41);	LCDSPI_InitDAT(0x0F);
+    LCDSPI_InitCMD(0x37);	LCDSPI_InitDAT(0x0C);
+
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x5D);	LCDSPI_InitDAT(0x01);
+    LCDSPI_InitCMD(0x75);	LCDSPI_InitDAT(0x08);
+
+    //VSR Marping command---L
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x5E);	LCDSPI_InitDAT(0x0F); 
+    LCDSPI_InitCMD(0x5F);	LCDSPI_InitDAT(0x12); 
+    LCDSPI_InitCMD(0x60);	LCDSPI_InitDAT(0xFF);
+    LCDSPI_InitCMD(0x61);	LCDSPI_InitDAT(0xFF);
+    LCDSPI_InitCMD(0x62);	LCDSPI_InitDAT(0xFF);
+
+    //   VSR Marping command---R
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x76);	LCDSPI_InitDAT(0xFF);
+    LCDSPI_InitCMD(0x77);	LCDSPI_InitDAT(0xFF);
+    LCDSPI_InitCMD(0x78);	LCDSPI_InitDAT(0x49); 
+    LCDSPI_InitCMD(0x79);	LCDSPI_InitDAT(0xF3); 
+    LCDSPI_InitCMD(0x7A);	LCDSPI_InitDAT(0xFF);
+
+    //VSR1-STV
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x00);	LCDSPI_InitDAT(0x9D);
+    LCDSPI_InitCMD(0x01);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x02);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x03);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x04);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x05);	LCDSPI_InitDAT(0x01);
+    LCDSPI_InitCMD(0x06);	LCDSPI_InitDAT(0x01);
+    LCDSPI_InitCMD(0x07);	LCDSPI_InitDAT(0x01);
+    LCDSPI_InitCMD(0x08);	LCDSPI_InitDAT(0x00);
+
+    //VSR2-SCK1
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x09);	LCDSPI_InitDAT(0xDC);
+    LCDSPI_InitCMD(0x0A);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x0B);	LCDSPI_InitDAT(0x02);
+    LCDSPI_InitCMD(0x0C);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x0D);	LCDSPI_InitDAT(0x08);
+    LCDSPI_InitCMD(0x0E);	LCDSPI_InitDAT(0x01);
+    LCDSPI_InitCMD(0x0F);	LCDSPI_InitDAT(0xCE);
+    LCDSPI_InitCMD(0x10);	LCDSPI_InitDAT(0x16);
+    LCDSPI_InitCMD(0x11);	LCDSPI_InitDAT(0x00);
+
+    //VSR3-SCK2
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x12);	LCDSPI_InitDAT(0xDC);
+    LCDSPI_InitCMD(0x13);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x14);	LCDSPI_InitDAT(0x02);
+    LCDSPI_InitCMD(0x15);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x16);	LCDSPI_InitDAT(0x08);
+    LCDSPI_InitCMD(0x17);	LCDSPI_InitDAT(0x02);
+    LCDSPI_InitCMD(0x18);	LCDSPI_InitDAT(0xCE);
+    LCDSPI_InitCMD(0x19);	LCDSPI_InitDAT(0x16);
+    LCDSPI_InitCMD(0x1A);	LCDSPI_InitDAT(0x00);
+
+    //VSR4-ECK1
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x1B);	LCDSPI_InitDAT(0xDC);
+    LCDSPI_InitCMD(0x1C);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x1D);	LCDSPI_InitDAT(0x02);
+    LCDSPI_InitCMD(0x1E);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x1F);	LCDSPI_InitDAT(0x08);
+    LCDSPI_InitCMD(0x20);	LCDSPI_InitDAT(0x01);
+    LCDSPI_InitCMD(0x21);	LCDSPI_InitDAT(0xCE);
+    LCDSPI_InitCMD(0x22);	LCDSPI_InitDAT(0x16);
+    LCDSPI_InitCMD(0x23);	LCDSPI_InitDAT(0x00);
+
+    //VSR5-ECK2
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x24);	LCDSPI_InitDAT(0xDC);
+    LCDSPI_InitCMD(0x25);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x26);	LCDSPI_InitDAT(0x02);
+    LCDSPI_InitCMD(0x27);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x28);	LCDSPI_InitDAT(0x08);
+    LCDSPI_InitCMD(0x29);	LCDSPI_InitDAT(0x02);
+    LCDSPI_InitCMD(0x2A);	LCDSPI_InitDAT(0xCE);
+    LCDSPI_InitCMD(0x2B);	LCDSPI_InitDAT(0x16);
+    LCDSPI_InitCMD(0x2D);	LCDSPI_InitDAT(0x00);
+
+    //VEN EM-STV
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x53);	LCDSPI_InitDAT(0x8a);
+    LCDSPI_InitCMD(0x54);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x55);	LCDSPI_InitDAT(0x03);
+    LCDSPI_InitCMD(0x56);	LCDSPI_InitDAT(0x01);
+    LCDSPI_InitCMD(0x58);	LCDSPI_InitDAT(0x01);
+    LCDSPI_InitCMD(0x59);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x65);	LCDSPI_InitDAT(0x76);
+    LCDSPI_InitCMD(0x66);	LCDSPI_InitDAT(0x19);
+    LCDSPI_InitCMD(0x67);	LCDSPI_InitDAT(0x00);
+
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x07);
+    LCDSPI_InitCMD(0x15);	LCDSPI_InitDAT(0x04);
+
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x05);
+    LCDSPI_InitCMD(0x4C);	LCDSPI_InitDAT(0x01);
+    LCDSPI_InitCMD(0x4D);	LCDSPI_InitDAT(0x82);
+    LCDSPI_InitCMD(0x4E);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x4F);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x50);	LCDSPI_InitDAT(0x20);
+    LCDSPI_InitCMD(0x51);	LCDSPI_InitDAT(0x10);
+    LCDSPI_InitCMD(0x52);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x53);	LCDSPI_InitDAT(0x41);
+    LCDSPI_InitCMD(0x54);	LCDSPI_InitDAT(0x0A);
+    LCDSPI_InitCMD(0x55);	LCDSPI_InitDAT(0x08);
+    LCDSPI_InitCMD(0x56);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x57);	LCDSPI_InitDAT(0x28);
+    LCDSPI_InitCMD(0x58);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x59);	LCDSPI_InitDAT(0x80);
+    LCDSPI_InitCMD(0x5A);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x5B);	LCDSPI_InitDAT(0x10);
+    LCDSPI_InitCMD(0x5C);	LCDSPI_InitDAT(0x20);
+    LCDSPI_InitCMD(0x5D);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x5E);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x5F);	LCDSPI_InitDAT(0x0A);
+    LCDSPI_InitCMD(0x60);	LCDSPI_InitDAT(0x01);
+    LCDSPI_InitCMD(0x61);	LCDSPI_InitDAT(0x08);
+    LCDSPI_InitCMD(0x62);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x63);	LCDSPI_InitDAT(0x20);
+    LCDSPI_InitCMD(0x64);	LCDSPI_InitDAT(0x40);
+    LCDSPI_InitCMD(0x65);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x66);	LCDSPI_InitDAT(0x02);
+    LCDSPI_InitCMD(0x67);	LCDSPI_InitDAT(0x48);
+    LCDSPI_InitCMD(0x68);	LCDSPI_InitDAT(0x4C);
+    LCDSPI_InitCMD(0x69);	LCDSPI_InitDAT(0x02);
+    LCDSPI_InitCMD(0x6A);	LCDSPI_InitDAT(0x12);
+    LCDSPI_InitCMD(0x6B);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x6C);	LCDSPI_InitDAT(0x48);
+    LCDSPI_InitCMD(0x6D);	LCDSPI_InitDAT(0xA0);
+    LCDSPI_InitCMD(0x6E);	LCDSPI_InitDAT(0x08);
+    LCDSPI_InitCMD(0x6F);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x70);	LCDSPI_InitDAT(0x05);
+    LCDSPI_InitCMD(0x71);	LCDSPI_InitDAT(0x92);
+    LCDSPI_InitCMD(0x72);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x73);	LCDSPI_InitDAT(0x18);
+    LCDSPI_InitCMD(0x74);	LCDSPI_InitDAT(0xA0);
+    LCDSPI_InitCMD(0x75);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x76);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x77);	LCDSPI_InitDAT(0xE4);
+    LCDSPI_InitCMD(0x78);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x79);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x7A);	LCDSPI_InitDAT(0x02);
+    LCDSPI_InitCMD(0x7B);	LCDSPI_InitDAT(0x01);
+    LCDSPI_InitCMD(0x7C);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x7D);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x7E);	LCDSPI_InitDAT(0x24);
+    LCDSPI_InitCMD(0x7F);	LCDSPI_InitDAT(0x4C);
+    LCDSPI_InitCMD(0x80);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x81);	LCDSPI_InitDAT(0x0A);
+    LCDSPI_InitCMD(0x82);	LCDSPI_InitDAT(0x02);
+    LCDSPI_InitCMD(0x83);	LCDSPI_InitDAT(0xC1);
+    LCDSPI_InitCMD(0x84);	LCDSPI_InitDAT(0x02);
+    LCDSPI_InitCMD(0x85);	LCDSPI_InitDAT(0x18);
+    LCDSPI_InitCMD(0x86);	LCDSPI_InitDAT(0x90);
+    LCDSPI_InitCMD(0x87);	LCDSPI_InitDAT(0x60);
+    LCDSPI_InitCMD(0x88);	LCDSPI_InitDAT(0x88);
+    LCDSPI_InitCMD(0x89);	LCDSPI_InitDAT(0x02);
+    LCDSPI_InitCMD(0x8A);	LCDSPI_InitDAT(0x09);
+    LCDSPI_InitCMD(0x8B);	LCDSPI_InitDAT(0x0C);
+    LCDSPI_InitCMD(0x8C);	LCDSPI_InitDAT(0x18);
+    LCDSPI_InitCMD(0x8D);	LCDSPI_InitDAT(0x90);
+    LCDSPI_InitCMD(0x8E);	LCDSPI_InitDAT(0x10);
+    LCDSPI_InitCMD(0x8F);	LCDSPI_InitDAT(0x08);
+    LCDSPI_InitCMD(0x90);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x91);	LCDSPI_InitDAT(0x10);
+    LCDSPI_InitCMD(0x92);	LCDSPI_InitDAT(0xA8);
+    LCDSPI_InitCMD(0x93);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x94);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x95);	LCDSPI_InitDAT(0x0A);
+    LCDSPI_InitCMD(0x96);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x97);	LCDSPI_InitDAT(0x08);
+    LCDSPI_InitCMD(0x98);	LCDSPI_InitDAT(0x10);
+    LCDSPI_InitCMD(0x99);	LCDSPI_InitDAT(0x28);
+    LCDSPI_InitCMD(0x9A);	LCDSPI_InitDAT(0x08);
+    LCDSPI_InitCMD(0x9B);	LCDSPI_InitDAT(0x04);
+    LCDSPI_InitCMD(0x9C);	LCDSPI_InitDAT(0x02);
+    LCDSPI_InitCMD(0x9D);	LCDSPI_InitDAT(0x03);
+
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x0C);
+    LCDSPI_InitCMD(0x25);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x31);	LCDSPI_InitDAT(0xEF);
+    LCDSPI_InitCMD(0x32);	LCDSPI_InitDAT(0xE3);
+    LCDSPI_InitCMD(0x33);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x34);	LCDSPI_InitDAT(0xE3);
+    LCDSPI_InitCMD(0x35);	LCDSPI_InitDAT(0xE3);
+    LCDSPI_InitCMD(0x36);	LCDSPI_InitDAT(0x80);
+    LCDSPI_InitCMD(0x37);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x38);	LCDSPI_InitDAT(0x79);
+    LCDSPI_InitCMD(0x39);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x3A);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x3B);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x3D);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x3F);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x40);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x41);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x42);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x43);	LCDSPI_InitDAT(0x01);
+
+    LCDSPI_InitCMD(0xFE);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0x35);	LCDSPI_InitDAT(0x00);
+    LCDSPI_InitCMD(0xC4);	LCDSPI_InitDAT(0x80);
+    LCDSPI_InitCMD(0x51);	LCDSPI_InitDAT(0xFF);
+    LCDSPI_InitCMD(0x2A);	LCDSPI_InitDAT(0x00);	LCDSPI_InitDAT(0x0C);	LCDSPI_InitDAT(0x01);	LCDSPI_InitDAT(0xD1);
+    LCDSPI_InitCMD(0x2B);	LCDSPI_InitDAT(0x00);	LCDSPI_InitDAT(0x00);	LCDSPI_InitDAT(0x01);	LCDSPI_InitDAT(0xC5);
+
+    LCDSPI_InitCMD(0x3a);	LCDSPI_InitDAT(0x55);   //0x55:RGB565  0x77:RGB888
+
+    LCDSPI_InitCMD(0x11);
+    co_delay_100us(120*10);
+
+    LCDSPI_InitCMD(0x29);
+    co_delay_100us(80*10);
+#endif
+}
+#endif
+

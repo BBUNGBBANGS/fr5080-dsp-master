@@ -1,0 +1,31 @@
+1. fr5080_basic和fr5080_mp3_decoder两个工程用于进行分段加载的测试，他们使用的lsp分别为fr5080_lsp_basic和fr5080_lsp_user_app
+2. fr5080_basic_xip和fr5080_mp3_decoder_xip两个工程用于进行分段加载的测试，他们使用的lsp分别为fr5080_lsp_basic_xip和fr5080_lsp_user_app_xip
+3. fr5080_basic_freertos是基于fr5080_basic调试通过的可以运行freeRTOS的工程，使用的lsp是fr5080_lsp_basic_freertos_xip。这个工程测试了全功能的FreeRTOS，消耗了比较多的RAM资源，对应的M3工程iRAM分配了64KB，剩余用作dRAM。
+4. fr5080_basic_rtthread是基于fr5080_basic调试通过的可以运行RT-Thread的工程，使用的lsp是fr5080_lsp_basic_debug_rtthread_iram，这个工程测试了UI的引擎。DSP端iram（160KB）和dram（256KB）采用了默认的初始配置
+
+2021.03.13
+1. MP3的解码工程中加入了容错处理
+2. XIP工作模式中支持通话时的语音处理。每隔37ms会运行两次算法，跟别持续4ms和5ms，注意如果用户代码会有长时间运行（比如推屏等）可能会有影响。
+3. 加入了flash_load_data函数可以用于读取flash程序，比直接调用memcpy会快20%~30%
+
+2021.01.06
+1. 修正了工程的配置；
+2. 可以支持打开工程配置中的DSP co-processor选项；
+3. 调整了iram和dram区域的初始化位置；
+4. 优化了flash操作的稳定性；
+5. 加入了是能4线操作时，针对不同flash的使能方式判断。
+
+2020.12.28
+1. ipc分配的channel在使用ipc_insert_msg时的第三个参数为成功发送给对方时的回调函数，之前该回调函数需要配置为ipc_free_channel或者在用户回调函数中调用该函数用来释放该channel。新版本程序中不再需要执行该动作，该动作直接在驱动层处理掉，用户无需关注。
+2. 针对ipc发送消息，新添加了两个函数ipc_msg_send和ipc_msg_with_payload_send，这两个函数参见ipc.c中的注释说明，用户不再需要关注ipc_alloc_channel失败的问题，驱动层会对该场景进行处理，保证用户的消息可以发送给MCU。使用方法可以参照ota.c中的例程。
+3. 修正了ST7796驱动中推送显示特殊数据出现错误的bug。
+4. qspi_flash_erase、qspi_flash_write、qspi_flash_read三个函数用于针对flash的操作
+5. 加入了ota.c支持通过MCU和IPC进行OTA升级，基本理念是采用备份空间用于临时存储OTA数据，步骤是：1. 擦除所需空间（当前未使用的连续空间）；2. 将待升级数据（MCU通过IPC传输过来）写入到该空间；3. 执行CRC校验，检查数据的有效性；4. 执行拷贝，从临时空间拷贝到运行空间，在拷贝过程中不允许进行DSP端的任何其他操作。
+
+2020.12.18
+1. 在用户代码中加入了软timer
+2. 加入了flash的擦除和写入操作（写入操作函数不支持跨页写，一个页是256字节）
+3. 经调试XIP支持XT25W64
+4. 目录结构进行了调整
+5. 针对LCD驱动的qspi controller不再需要在初始化时单独配置，改在了实际推屏的函数（例如LCD_QSPI_WRITE）中来实现
+6. 加入了通话时DSP端音频处理的通路

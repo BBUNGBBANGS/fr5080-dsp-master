@@ -1,0 +1,84 @@
+/*
+ * main.c
+ *
+ *  Created on: 2018-8-19
+ *      Author: Administrator
+ */
+
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "xa_type_def.h"
+
+#include "ipc.h"
+#include "user_def.h"
+#include "plf.h"
+#include "flash.h"
+
+void app_ipc_rx_set_user_handler(void *arg);
+void app_register_default_task_handler(void *arg);
+
+void app_entry(void);
+
+void msbc_encoder_init(void);
+void msbc_encoder_recv_frame_req(void *arg);
+
+extern uint32_t _bss_start, _bss_end;
+
+__attribute__((section("entry_point_section"))) const uint32_t entry_point[] = {
+    (uint32_t)app_entry,
+};
+
+static void ipc_rx_user_handler(struct ipc_msg_t *msg, uint8_t chn)
+{
+    uint8_t channel;
+
+    switch(msg->format) {
+        case IPC_MSG_WITHOUT_PAYLOAD:
+            switch(msg->length) {
+                case IPC_SUB_MSG_NEED_MORE_MSBC:
+                    msbc_encoder_recv_frame_req(NULL);
+                    break;
+                default:
+                    break;
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+static void user_task_handler(struct task_msg_t *msg)
+{
+    switch(msg->id) {
+        case MSBC_ENCODER_INIT:
+            msbc_encoder_init();
+            break;
+        default:
+            break;
+    }
+}
+
+void app_entry(void)
+{
+    uint32_t *ptr;
+    uint8_t channel;
+
+    for(ptr = &_bss_start; ptr < & _bss_end;) {
+        *ptr++ = 0;
+    }
+    printf("enter app entry: BUILD DATE: %s, TIME: %s\r\n", __DATE__, __TIME__);
+
+    app_ipc_rx_set_user_handler(ipc_rx_user_handler);
+    app_register_default_task_handler(user_task_handler);
+
+    struct task_msg_t *msg = task_msg_alloc(MSBC_ENCODER_INIT, 0);
+    task_msg_insert(msg);
+
+    /* inform MCU that DSP is ready */
+    channel = ipc_alloc_channel(0);
+    if(channel != 0xff) {
+        ipc_insert_msg(channel, IPC_MSG_WITHOUT_PAYLOAD, IPC_SUM_MSG_DSP_USER_CODE_READY, ipc_free_channel);
+    }
+}
